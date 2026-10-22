@@ -1,0 +1,44 @@
+@use "sass:color";
+@use "variables" as *;
+@use "functions" as *;
+
+// Адаптивный ограничивающий контейнер
+@mixin container($max: $container-width) {
+  width: 100%;
+  max-width: $max;
+  margin-inline: auto;
+  padding-inline: space(1.5);
+
+  @include down($bp-sm) {
+    padding-inline: space(1);
+  }
+}
+
+// Видимый фокус для клавиатурной навигации
+@mixin focus-ring($color: $accent) {
+  &:focus-visible {
+    outline: 3px solid $color;
+    outline-offset: 2px;
+  }
+}
+
+// Поверхность-«карточка»: фон, рамка, радиус
+@mixin surface($pad: 1) {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: radius();
+  padding: space($pad);
+}
+
+// Медиазапрос «до ширины»
+@mixin down($bp) {
+  @media (max-width: $bp) {
+    @content;
+  }
+}
+
+// Цветовой вариант бейджа: мягкий фон + насыщенный текст из одного цвета
+@mixin tint($color) {
+  color: color.adjust($color, $lightness: -8%);
+  background: color.mix($color, #fff, 12%);
+}

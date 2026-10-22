@@ -1,0 +1,67 @@
+@use "../variables" as *;
+@use "../functions" as *;
+@use "../mixins" as *;
+
+.filters {
+  @include surface(1.25);
+
+  &__title { font-size: rem(20); }
+  &__form  { display: flex; flex-direction: column; gap: space(1); }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: space(0.25);
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  &__legend { margin-bottom: space(0.35); font-weight: 700; }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    gap: space(0.5);
+    padding: space(0.35) space(0.5);
+    border-radius: radius(0.5);
+    cursor: pointer;
+
+    &:hover { background: rgba($accent, 0.06); }
+    &:has(:checked) { background: rgba($accent, 0.1); color: $accent; font-weight: 600; }
+
+    input { accent-color: $accent; }
+  }
+
+  &__count {
+    margin-left: auto;
+    color: $text-muted;
+    font-size: rem(13);
+    font-weight: 400;
+  }
+
+  // На планшете/телефоне группы фильтров встают в строку
+  @include down($bp-lg) {
+    &__form { flex-flow: row wrap; align-items: flex-end; }
+    &__group { flex: 1 1 rem(220); }
+  }
+}
+
+// --- Логика фильтрации без JavaScript ---
+// Категории: правило для каждой генерируется циклом по $categories
+@each $name, $color in $categories {
+  .page:has(#cat-#{$name}:checked) .catalog__item:not([data-category="#{$name}"]) {
+    display: none;
+  }
+}
+
+// Рейтинг от 4.5
+.page:has(#only-top:checked) .catalog__item:not([data-top]) {
+  display: none;
+}
+
+// Пустое состояние: в категории «Инструменты» нет товаров с рейтингом ≥ 4.5 (max 4.4 по catalog.csv)
+.page:has(#cat-tools:checked):has(#only-top:checked) {
+  .catalog-empty   { display: block; }
+  .catalog-summary { display: none; }
+}

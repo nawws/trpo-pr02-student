@@ -1,0 +1,32 @@
+// Переменные темы. Значения accent, surface, background, text, radius, space взяты из dataset/theme.json.
+// Это единственное место, где задаются цвета и размеры — остальные файлы только используют их.
+
+// --- theme.json ---
+$accent:     #315efb;
+$surface:    #ffffff;
+$background: #f5f7fb;
+$text:       #1f2937;
+$radius-px:  14;   // theme.json → "radius": 14
+$space-px:   16;   // theme.json → "space": 16
+
+// --- производные цвета (вычисляются Sass из базовых) ---
+$text-muted:   #6b7280;
+$border:       #e5e7eb;
+$header-bg:    #111827;
+
+// --- категории каталога (имя из data-category → цвет бейджа) ---
+$categories: (
+  books:   #315efb,
+  courses: #0f9d58,
+  tools:   #e8710a,
+);
+
+// --- размеры ---
+$container-width: 1200px;
+$sidebar-width:   260px;
+$card-min-width:  220px;
+$card-min-width-compact: 150px;
+
+// --- брейкпоинты ---
+$bp-lg: 1024px;  // перестройка раскладки: фильтры над каталогом
+$bp-sm: 600px;   // плотность карточек и компактная навигация

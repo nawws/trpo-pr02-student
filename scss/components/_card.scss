@@ -1,0 +1,47 @@
+@use "../variables" as *;
+@use "../functions" as *;
+@use "../mixins" as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  @include surface(0);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: rgba($accent, 0.5);
+    box-shadow: 0 rem(10) rem(24) rgba($text, 0.08);
+  }
+
+  &__image {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    background: $background;
+  }
+
+  &__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: space(0.35);
+    padding: space(1);
+  }
+
+  &__title { margin: 0; font-size: rem(17); }
+  &__meta  { margin: 0; color: $text-muted; font-size: rem(14); }
+
+  &__price {
+    margin: auto 0 0;
+    padding-top: space(0.5);
+    color: $accent;
+    font-size: rem(20);
+    font-weight: 800;
+  }
+}
+
+.rating { color: #b45309; white-space: nowrap; }

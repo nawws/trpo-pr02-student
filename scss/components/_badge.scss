@@ -1,0 +1,18 @@
+@use "../variables" as *;
+@use "../functions" as *;
+@use "../mixins" as *;
+
+.badge {
+  display: inline-block;
+  padding: rem(3) rem(10);
+  border-radius: 999px;
+  font-size: rem(12);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  @include tint($accent);
+
+  // Варианты генерируются циклом из карты $categories — новая категория = одна строка в _variables.scss
+  @each $name, $color in $categories {
+    &--#{$name} { @include tint($color); }
+  }
+}

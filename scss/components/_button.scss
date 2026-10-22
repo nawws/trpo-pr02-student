@@ -1,0 +1,26 @@
+@use "sass:color";
+@use "../variables" as *;
+@use "../functions" as *;
+@use "../mixins" as *;
+
+.btn {
+  display: inline-block;
+  padding: space(0.6) space(1.1);
+  border: 2px solid $accent;
+  border-radius: radius(0.7);
+  background: $accent;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  @include focus-ring;
+
+  &:hover { background: color.adjust($accent, $lightness: -8%); }
+
+  &--ghost {
+    background: transparent;
+    color: $accent;
+
+    &:hover { background: rgba($accent, 0.08); }
+  }
+}

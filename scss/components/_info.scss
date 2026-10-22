@@ -1,0 +1,28 @@
+@use "../variables" as *;
+@use "../functions" as *;
+@use "../mixins" as *;
+
+.info {
+  @include surface(1.5);
+
+  &__text { color: $text-muted; }
+}
+
+.table-wrap { overflow-x: auto; }
+
+.stats {
+  width: 100%;
+  min-width: rem(560);
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: space(0.6) space(0.75);
+    border-bottom: 1px solid $border;
+    text-align: left;
+  }
+
+  thead th { background: $background; font-size: rem(14); }
+  tfoot    { font-weight: 700; }
+  .num     { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+}

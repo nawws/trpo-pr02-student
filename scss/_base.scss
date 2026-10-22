@@ -1,0 +1,78 @@
+@use "variables" as *;
+@use "functions" as *;
+@use "mixins" as *;
+
+// CSS custom properties — доступны в браузере (DevTools), в отличие от SCSS-переменных
+:root {
+  --accent: #{$accent};
+  --radius: #{radius()};
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: space(5);
+}
+
+body {
+  margin: 0;
+  background: $background;
+  color: $text;
+  font-family: Arial, "Helvetica Neue", sans-serif;
+  line-height: 1.55;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1, h2, h3 {
+  margin: 0 0 space(0.5);
+  line-height: 1.25;
+}
+
+p { margin: 0 0 space(0.75); }
+
+a {
+  color: $accent;
+  text-underline-offset: 3px;
+  @include focus-ring;
+}
+
+code {
+  padding: 0 rem(4);
+  border-radius: rem(4);
+  background: rgba($accent, 0.08);
+  font-size: 0.9em;
+}
+
+.container { @include container; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  top: -3rem;
+  left: space(1);
+  z-index: 100;
+  padding: space(0.5) space(1);
+  border-radius: radius(0.5);
+  background: $accent;
+  color: #fff;
+
+  &:focus { top: space(1); }
+}

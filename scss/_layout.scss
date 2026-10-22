@@ -1,0 +1,103 @@
+@use "sass:color";
+@use "variables" as *;
+@use "functions" as *;
+@use "mixins" as *;
+
+// --- Шапка (Flexbox) ---
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: $header-bg;
+  color: #fff;
+
+  &__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: space(0.75);
+    padding-block: space(0.9);
+  }
+}
+
+.logo {
+  color: #fff;
+  font-size: rem(22);
+  font-weight: 800;
+  text-decoration: none;
+
+  &__accent { color: color.adjust($accent, $lightness: 18%); }
+}
+
+.site-nav {
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: space(0.25);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__link {
+    display: block;
+    padding: space(0.4) space(0.8);
+    border-radius: radius(0.5);
+    color: #e5e7eb;
+    text-decoration: none;
+
+    &:hover { background: rgba(#fff, 0.12); color: #fff; }
+  }
+}
+
+// --- Основная раскладка (Grid): фильтры слева, каталог справа, инфоблок снизу ---
+.layout {
+  display: grid;
+  grid-template-columns: $sidebar-width minmax(0, 1fr);
+  grid-template-areas:
+    "sidebar content"
+    "info    info";
+  gap: space(1.5);
+  align-items: start;
+  padding-block: space(2);
+
+  &__sidebar { grid-area: sidebar; position: sticky; top: space(5); }
+  &__content { grid-area: content; }
+  &__info    { grid-area: info; }
+
+  // Breakpoint 1: панель фильтров переносится над карточками
+  @include down($bp-lg) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "sidebar"
+      "content"
+      "info";
+
+    &__sidebar { position: static; }
+  }
+}
+
+// --- Подвал ---
+.site-footer {
+  background: $header-bg;
+  color: #cbd5e1;
+
+  &__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: space(0.5) space(1.5);
+    padding-block: space(1.25);
+  }
+
+  p { margin: 0; }
+  a { color: color.adjust($accent, $lightness: 22%); }
+}
+
+// Breakpoint 2: компактная навигация
+@include down($bp-sm) {
+  .site-header__inner { flex-direction: column; align-items: flex-start; gap: space(0.25); }
+  .site-nav__link { padding: space(0.3) space(0.6); font-size: rem(15); }
+  html { scroll-padding-top: space(7); }
+}

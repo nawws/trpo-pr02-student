@@ -1,0 +1,9 @@
+// Главный файл: только подключает partial-файлы. Компилируется в ../css/styles.css
+@use "base";
+@use "layout";
+@use "components/button";
+@use "components/badge";
+@use "components/card";
+@use "components/catalog";
+@use "components/filters";
+@use "components/info";

@@ -1,0 +1,49 @@
+@use "../variables" as *;
+@use "../functions" as *;
+@use "../mixins" as *;
+
+.catalog-head {
+  margin-bottom: space(1.25);
+
+  &__title { font-size: clamp(#{rem(24)}, 3vw, #{rem(32)}); }
+  &__lead  { color: $text-muted; }
+}
+
+// Адаптивная сетка карточек: число колонок зависит от ширины, без медиазапроса
+.catalog {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($card-min-width, 1fr));
+  gap: space(1.25);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: shown;
+
+  &__item { counter-increment: shown; }
+
+  // Breakpoint 2: плотнее сетка — две узкие колонки на телефоне
+  @include down($bp-sm) {
+    grid-template-columns: repeat(auto-fill, minmax($card-min-width-compact, 1fr));
+    gap: space(0.75);
+
+    .card__body  { padding: space(0.75); }
+    .card__title { font-size: rem(15); }
+    .card__price { font-size: rem(17); }
+  }
+}
+
+// Счётчик видимых карточек (скрытые display:none не учитываются CSS-счётчиком)
+.catalog-summary {
+  margin-top: space(1);
+  color: $text-muted;
+
+  &::after { content: counter(shown); font-weight: 700; color: $text; }
+}
+
+.catalog-empty {
+  display: none;
+  @include surface(1.25);
+  border-style: dashed;
+  text-align: center;
+  color: $text-muted;
+}
